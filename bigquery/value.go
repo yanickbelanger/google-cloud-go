@@ -228,6 +228,9 @@ func compileToOps(structType reflect.Type, schema Schema) ([]structLoaderOp, err
 				return nil, err
 			}
 			op.setFunc = func(v reflect.Value, val interface{}) error {
+				if val == nil {
+					return nil
+				}
 				return setNested(nested, v, val.([]Value))
 			}
 		} else {
